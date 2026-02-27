@@ -1,52 +1,189 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import { LoginRegister } from './components/LoginRegister';
+import { Navigation } from './components/shared/Navigation';
+import { LoadingScreen, ProcessingScreen } from './components/shared/LoadingScreen';
+import { PatientDashboard } from './components/patient/PatientDashboard';
+import { AIAssessment } from './components/patient/AIAssessment';
+import { AIResults } from './components/patient/AIResults';
+import { DoctorFinder } from './components/patient/DoctorFinder';
+import { MyReports } from './components/patient/MyReports';
+import { AIChat } from './components/patient/AIChat';
+import { DoctorDashboard } from './components/doctor/DoctorDashboard';
+import { MyPatients } from './components/doctor/MyPatients';
+import { Schedule } from './components/doctor/Schedule';
+import { Appointments } from './components/doctor/Appointments';
+import { DoctorAnalytics } from './components/doctor/DoctorAnalytics';
+import { Messages } from './components/doctor/Messages';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+function App() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processingMessages, setProcessingMessages] = useState([]);
+  const [user, setUser] = useState(null);
+  const [currentView, setCurrentView] = useState('dashboard');
+  const [language, setLanguage] = useState('en');
+  const [assessmentData, setAssessmentData] = useState(null);
+  const [riskAnalysis, setRiskAnalysis] = useState(null);
+  
+  // Initialize data from localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem('osteoai_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+    const savedAssessment = localStorage.getItem('osteoai_assessment');
+    if (savedAssessment) {
+      setAssessmentData(JSON.parse(savedAssessment));
+    }
+
+    const savedAnalysis = localStorage.getItem('osteoai_analysis');
+    if (savedAnalysis) {
+      setRiskAnalysis(JSON.parse(savedAnalysis));
+    }
+  }, []);
+
+  const handleLogin = (userData) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setUser(userData);
+      localStorage.setItem('osteoai_user', JSON.stringify(userData));
+      setIsLoading(false);
+      setCurrentView(userData.role === 'Doctor' ? 'doctor-dashboard' : 'dashboard');
+    }, 3000);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentView('dashboard');
+    localStorage.removeItem('osteoai_user');
+  };
+
+  const handleViewChange = (view) => {
+    setCurrentView(view);
+  };
+
+  const handleAssessmentComplete = (data, analysis) => {
+    setAssessmentData(data);
+    setRiskAnalysis(analysis);
+    localStorage.setItem('osteoai_assessment', JSON.stringify(data));
+    localStorage.setItem('osteoai_analysis', JSON.stringify(analysis));
+    
+    // Add to history
+    const history = JSON.parse(localStorage.getItem('osteoai_history') || '[]');
+    history.unshift({
+      date: new Date().toISOString(),
+      score: analysis.score,
+      riskLevel: analysis.riskLevel,
+      classification: analysis.classification
+    });
+    localStorage.setItem('osteoai_history', JSON.stringify(history.slice(0, 10)));
+    
+    setCurrentView('results');
+  };
+
+  const showProcessing = (messages, callback) => {
+    setProcessingMessages(messages);
+    setIsProcessing(true);
+    setTimeout(() => {
+      setIsProcessing(false);
+      if (callback) callback();
+    }, 3500);
+  };
+
+  // Render current view
+  const renderView = () => {
+    if (!user) return null;
+
+    const commonProps = {
+      user,
+      onViewChange: handleViewChange,
+      showProcessing,
+      language
+    };
+
+    // Patient views
+    if (user.role === 'Patient') {
+      switch (currentView) {
+        case 'dashboard':
+          return <PatientDashboard {...commonProps} riskAnalysis={riskAnalysis} />;
+        case 'assessment':
+          return <AIAssessment {...commonProps} onComplete={handleAssessmentComplete} />;
+        case 'results':
+          return <AIResults {...commonProps} riskAnalysis={riskAnalysis} assessmentData={assessmentData} />;
+        case 'doctors':
+          return <DoctorFinder {...commonProps} />;
+        case 'reports':
+          return <MyReports {...commonProps} />;
+        case 'chat':
+          return <AIChat {...commonProps} userContext={riskAnalysis} />;
+        default:
+          return <PatientDashboard {...commonProps} riskAnalysis={riskAnalysis} />;
+      }
+    }
+
+    // Doctor views
+    if (user.role === 'Doctor') {
+      switch (currentView) {
+        case 'doctor-dashboard':
+          return <DoctorDashboard {...commonProps} />;
+        case 'my-patients':
+          return <MyPatients {...commonProps} />;
+        case 'schedule':
+          return <Schedule {...commonProps} />;
+        case 'appointments':
+          return <Appointments {...commonProps} />;
+        case 'analytics':
+          return <DoctorAnalytics {...commonProps} />;
+        case 'messages':
+          return <Messages {...commonProps} />;
+        default:
+          return <DoctorDashboard {...commonProps} />;
+      }
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+    <div className="App min-h-screen">
+      {/* Background Pattern */}
+      <div className="background-pattern" />
+      
+      {/* Floating Particles */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {[...Array(9)].map((_, i) => (
+          <div key={i} className="particle" />
+        ))}
+      </div>
 
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      {/* Content */}
+      <div className="content-wrapper">
+        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+        {isProcessing && (
+          <ProcessingScreen
+            messages={processingMessages}
+            onComplete={() => setIsProcessing(false)}
+          />
+        )}
+
+        {!user ? (
+          <LoginRegister onLogin={handleLogin} />
+        ) : (
+          <>
+            <Navigation
+              user={user}
+              currentView={currentView}
+              onViewChange={handleViewChange}
+              onLogout={handleLogout}
+              language={language}
+              onLanguageChange={setLanguage}
+            />
+            <main className="min-h-[calc(100vh-4rem)]">
+              {renderView()}
+            </main>
+          </>
+        )}
+      </div>
     </div>
   );
 }
