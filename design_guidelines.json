@@ -1,0 +1,206 @@
+{
+  "identity": {
+    "persona": "E1",
+    "mission": "Create a Medical-Futuristic interface that balances clinical trust with high-tech immersion. Break the 'sterile white' medical stereotype with a deep, bioluminescent dark mode.",
+    "core_principles": [
+      "Fusion: Clinical Precision x Cyberpunk Aesthetics",
+      "Emotion: Trust, Clarity, Future-Forward",
+      "Content: Data is the hero; use glow to highlight critical metrics",
+      "Contrast: Deep Navy background vs. Electric Cyan data points"
+    ]
+  },
+  "visual_language": {
+    "theme": "dark",
+    "colors": {
+      "base": {
+        "background": "#0a0f1e",
+        "foreground": "#f0ece3",
+        "card": "rgba(10, 15, 30, 0.6)",
+        "card_foreground": "#f0ece3",
+        "popover": "#0a0f1e",
+        "popover_foreground": "#f0ece3",
+        "border": "rgba(0, 229, 255, 0.2)"
+      },
+      "brand": {
+        "primary": "#00e5ff",
+        "primary_foreground": "#000000",
+        "secondary": "#1B2436",
+        "secondary_foreground": "#00e5ff",
+        "accent": "#00e5ff",
+        "accent_foreground": "#000000"
+      },
+      "semantic": {
+        "destructive": "#ff4d6d",
+        "destructive_foreground": "#ffffff",
+        "success": "#06d6a0",
+        "warning": "#ffd166",
+        "info": "#00e5ff"
+      },
+      "charts": {
+        "chart_1": "#00e5ff",
+        "chart_2": "#06d6a0",
+        "chart_3": "#ff4d6d",
+        "chart_4": "#ffd166",
+        "chart_5": "#f0ece3"
+      }
+    },
+    "typography": {
+      "font_family": {
+        "heading": "Syne, sans-serif",
+        "body": "Manrope, sans-serif",
+        "mono": "IBM Plex Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-5xl md:text-6xl font-bold tracking-tight",
+        "h2": "text-4xl md:text-5xl font-bold tracking-tight",
+        "h3": "text-3xl font-bold",
+        "h4": "text-2xl font-semibold",
+        "p": "text-base leading-relaxed text-slate-300",
+        "caption": "text-xs font-mono text-slate-500 uppercase tracking-widest"
+      }
+    },
+    "spacing": {
+      "container_padding": "p-6 md:p-8 lg:p-12",
+      "section_gap": "gap-8 md:gap-12",
+      "item_gap": "gap-4"
+    },
+    "radius": {
+      "default": "rounded-2xl",
+      "button": "rounded-full",
+      "card": "rounded-2xl",
+      "input": "rounded-xl"
+    },
+    "effects": {
+      "glass": "backdrop-blur-md bg-white/5 border border-white/10 shadow-xl",
+      "glow_primary": "shadow-[0_0_20px_rgba(0,229,255,0.3)]",
+      "glow_text": "drop-shadow-[0_0_8px_rgba(0,229,255,0.5)]",
+      "border_gradient": "border-transparent bg-clip-border bg-gradient-to-r from-cyan-500/20 to-transparent"
+    }
+  },
+  "layout_strategies": {
+    "dashboard_grid": {
+      "wrapper": "grid grid-cols-1 md:grid-cols-12 gap-6 p-6",
+      "sidebar": "hidden md:flex md:col-span-2 lg:col-span-2 flex-col h-[calc(100vh-3rem)] sticky top-6",
+      "main_content": "col-span-1 md:col-span-10 lg:col-span-10 space-y-6"
+    },
+    "bento_grid": {
+      "container": "grid grid-cols-1 md:grid-cols-4 gap-4",
+      "hero_card": "col-span-1 md:col-span-2 row-span-2",
+      "standard_card": "col-span-1 row-span-1",
+      "tall_card": "col-span-1 row-span-2"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#00e5ff] text-black hover:bg-[#00c2d9] font-bold rounded-full shadow-[0_0_15px_rgba(0,229,255,0.4)] transition-all hover:scale-105 active:scale-95",
+      "secondary": "bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-[#00e5ff]/50 transition-all rounded-full",
+      "ghost": "hover:bg-white/5 text-slate-300 hover:text-[#00e5ff] transition-colors rounded-lg",
+      "destructive": "bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20"
+    },
+    "cards": {
+      "default": "bg-[#0a0f1e]/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl relative overflow-hidden group hover:border-[#00e5ff]/30 transition-colors",
+      "interactive": "cursor-pointer hover:-translate-y-1 transition-transform duration-300"
+    },
+    "inputs": {
+      "base": "bg-black/20 border-white/10 focus:border-[#00e5ff] focus:ring-1 focus:ring-[#00e5ff] text-white placeholder:text-slate-600 rounded-xl h-12"
+    },
+    "badges": {
+      "default": "bg-white/5 text-slate-300 border border-white/10 px-3 py-1 rounded-full text-xs font-mono tracking-wider",
+      "success": "bg-[#06d6a0]/10 text-[#06d6a0] border border-[#06d6a0]/20 px-3 py-1 rounded-full text-xs font-mono",
+      "warning": "bg-[#ffd166]/10 text-[#ffd166] border border-[#ffd166]/20 px-3 py-1 rounded-full text-xs font-mono",
+      "danger": "bg-[#ff4d6d]/10 text-[#ff4d6d] border border-[#ff4d6d]/20 px-3 py-1 rounded-full text-xs font-mono"
+    }
+  },
+  "assets": {
+    "images": {
+      "doctors": [
+        {
+          "url": "https://images.unsplash.com/photo-1758691461516-7e716e0ca135?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHw0fHxkb2N0b3IlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbCUyMG1lZGljYWwlMjBjb2F0fGVufDB8fHx8MTc3MjE4MjYyN3ww&ixlib=rb-4.1.0&q=85",
+          "alt": "Senior Doctor Avatar",
+          "category": "avatars"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1758691463393-a2aa9900af8a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwzfHxkb2N0b3IlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbCUyMG1lZGljYWwlMjBjb2F0fGVufDB8fHx8MTc3MjE4MjYyN3ww&ixlib=rb-4.1.0&q=85",
+          "alt": "Smiling Doctor Avatar",
+          "category": "avatars"
+        },
+        {
+          "url": "https://images.pexels.com/photos/31842729/pexels-photo-31842729.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "alt": "Male Doctor Green Background",
+          "category": "avatars"
+        }
+      ],
+      "patients": [
+        {
+          "url": "https://images.unsplash.com/photo-1758686254563-5c5ab338c8b9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzOTB8MHwxfHNlYXJjaHwzfHxlbGRlcmx5JTIwcGVyc29uJTIwcG9ydHJhaXQlMjBoYXBweXxlbnwwfHx8fDE3NzIxODI2Mjh8MA&ixlib=rb-4.1.0&q=85",
+          "alt": "Elderly Woman Patient",
+          "category": "avatars"
+        },
+        {
+          "url": "https://images.pexels.com/photos/3831569/pexels-photo-3831569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "alt": "Elderly Man Patient",
+          "category": "avatars"
+        }
+      ],
+      "backgrounds": [
+        {
+          "url": "https://images.unsplash.com/photo-1763198302535-265c44183bcb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwYm9uZSUyMHNjYW4lMjBtZWRpY2FsJTIweC1yYXklMjBibHVlfGVufDB8fHx8MTc3MjE4MjYyOHww&ixlib=rb-4.1.0&q=85",
+          "alt": "X-Ray Skeleton",
+          "category": "medical"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1651132138765-3d6423a0e105?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwzfHxtZWRpY2FsJTIwbGFib3JhdG9yeSUyMGFic3RyYWN0JTIwYmx1ZSUyMGRhcmt8ZW58MHx8fHwxNzcyMTgyNjI5fDA&ixlib=rb-4.1.0&q=85",
+          "alt": "Lab Abstract Blue",
+          "category": "abstract"
+        }
+      ]
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-[1.5px] w-5 h-5"
+    }
+  },
+  "motion": {
+    "libraries": ["framer-motion"],
+    "variants": {
+      "fadeSlideUp": {
+        "initial": { "opacity": 0, "y": 20 },
+        "animate": { "opacity": 1, "y": 0 },
+        "transition": { "duration": 0.5, "ease": "easeOut" }
+      },
+      "pulse": {
+        "animate": { "scale": [1, 1.05, 1], "opacity": [0.8, 1, 0.8] },
+        "transition": { "duration": 2, "repeat": "Infinity" }
+      },
+      "scanBeam": {
+        "initial": { "top": "-100%" },
+        "animate": { "top": "100%" },
+        "transition": { "duration": 2, "repeat": "Infinity", "ease": "linear" }
+      }
+    }
+  },
+  "universal_guidelines": [
+    "Do NOT use gradients for dark backgrounds; use solid colors + texture overlays.",
+    "Do NOT center align the app container; keep text left-aligned for readability.",
+    "Ensure all interactive elements have a `data-testid` attribute.",
+    "Use 'Syne' font for Headings and 'IBM Plex Mono' for data metrics.",
+    "Cards must use glassmorphism: `backdrop-blur-md bg-white/5`.",
+    "Primary action buttons must be Cyan (#00e5ff) with black text.",
+    "Avoid using generic 'Inter' font for headings.",
+    "Create a 'hex/bone grid' pattern using CSS radial gradients for the background.",
+    "Accessibility: Ensure Cyan text on Dark Navy meets contrast ratios (it does, 4.5:1+)."
+  ],
+  "implementation_steps": [
+    "Install dependencies: `npm install framer-motion recharts lucide-react clsx tailwind-merge`",
+    "Update `tailwind.config.js` with the new color palette and fonts.",
+    "Create a global CSS background with the hex/bone grid pattern.",
+    "Build the `Layout` component with the sidebar and glassmorphism header.",
+    "Implement the `OsteoBot` chat with voice visualization (bars moving on voice input).",
+    "Develop the `RiskAssessment` flow with step-by-step animations.",
+    "Build the `Dashboard` with Recharts and 'Bento' grid layout."
+  ],
+  "css_snippets": {
+    "background_pattern": "background-color: #0a0f1e; background-image: radial-gradient(#00e5ff 1px, transparent 1px); background-size: 40px 40px; opacity: 1;",
+    "custom_scrollbar": "::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #0a0f1e; } ::-webkit-scrollbar-thumb { background: #1B2436; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #00e5ff; }"
+  }
+}
