@@ -25,6 +25,8 @@ function App() {
   const [language, setLanguage] = useState('en');
   const [assessmentData, setAssessmentData] = useState(null);
   const [riskAnalysis, setRiskAnalysis] = useState(null);
+  const [darkMode, setDarkMode] = useState(true);
+  const [cursor, setCursor] = useState({ x: 0, y: 0, isHovering: false });
   
   // Initialize data from localStorage
   useEffect(() => {
@@ -42,6 +44,36 @@ function App() {
     if (savedAnalysis) {
       setRiskAnalysis(JSON.parse(savedAnalysis));
     }
+
+    const savedTheme = localStorage.getItem('osteoai_theme');
+    if (savedTheme) {
+      setDarkMode(savedTheme === 'dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('osteoai_theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
+
+  useEffect(() => {
+    const onMouseMove = (event) => {
+      setCursor(prev => ({ ...prev, x: event.clientX, y: event.clientY }));
+    };
+
+    const onMouseOver = (event) => {
+      const interactiveEl = event.target.closest('button, a, input, select, textarea, [role="button"]');
+      setCursor(prev => ({ ...prev, isHovering: Boolean(interactiveEl) }));
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseover', onMouseOver);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseover', onMouseOver);
+    };
   }, []);
 
   const handleLogin = (userData) => {
@@ -177,13 +209,20 @@ function App() {
               onLogout={handleLogout}
               language={language}
               onLanguageChange={setLanguage}
+              darkMode={darkMode}
+              onThemeToggle={() => setDarkMode(prev => !prev)}
             />
-            <main className="min-h-[calc(100vh-4rem)]">
+            <main className="min-h-[calc(100vh-4rem)] page-transition">
               {renderView()}
             </main>
           </>
         )}
       </div>
+
+      <div
+        className={`cursor-dot hidden md:block ${cursor.isHovering ? 'hover' : ''}`}
+        style={{ transform: `translate(${cursor.x - 6}px, ${cursor.y - 6}px) scale(${cursor.isHovering ? 1.8 : 1})` }}
+      />
     </div>
   );
 }

@@ -130,7 +130,7 @@ export const calculateRiskScore = (assessmentData) => {
   const familyMap = {
     'Parents/siblings': -15,
     'Extended family': -8,
-    'Not sure': -4,
+    'Not sure': 0,
     'No history': 0
   };
   const familyDeduction = familyMap[assessmentData.familyHistory] || 0;
@@ -197,9 +197,9 @@ export const calculateRiskScore = (assessmentData) => {
 
   // Calculate T-score simulation
   let tScore;
-  if (score >= 70) {
+  if (score > 70) {
     tScore = -0.5 + (score - 70) * 0.05; // Above -1.0
-  } else if (score >= 40) {
+  } else if (score > 40) {
     tScore = -1.0 - (70 - score) * 0.05; // Between -1.0 and -2.5
   } else {
     tScore = -2.5 - (40 - score) * 0.05; // Below -2.5
@@ -208,10 +208,10 @@ export const calculateRiskScore = (assessmentData) => {
 
   // Classification
   let classification, riskLevel;
-  if (score >= 70) {
+  if (score > 70) {
     classification = 'NORMAL';
     riskLevel = 'LOW';
-  } else if (score >= 40) {
+  } else if (score > 40) {
     classification = 'OSTEOPENIA';
     riskLevel = 'MODERATE';
   } else {
