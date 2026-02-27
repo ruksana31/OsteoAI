@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { Bell, User, LogOut, Sun, Moon, Globe } from 'lucide-react';
 import { translations } from '@/utils/mockData';
 
-export const Navigation = ({ user, currentView, onViewChange, onLogout, language, onLanguageChange }) => {
+export const Navigation = ({ user, currentView, onViewChange, onLogout, language, onLanguageChange, darkMode, onThemeToggle }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
   const [notifications] = useState(3);
 
   const t = translations[language] || translations.en;
@@ -107,7 +106,7 @@ export const Navigation = ({ user, currentView, onViewChange, onLogout, language
 
             {/* Dark/Light Mode Toggle */}
             <button
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={onThemeToggle}
               className="p-2 hover:bg-white/5 rounded-lg transition-colors"
               data-testid="theme-toggle"
             >
